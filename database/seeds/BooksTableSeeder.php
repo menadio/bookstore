@@ -17,7 +17,7 @@ class BooksTableSeeder extends Seeder
 
         factory(App\Book::class, 5)->create()->each(function ($book) {
             // Add book rating
-            $ratings = factory(App\Rating::class, 1)->make();
+            $ratings = factory(App\Rating::class, 1)->create(['book_id' => $book->id]);
             $book->ratings()->saveMany($ratings);
         });
     }
