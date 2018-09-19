@@ -27,12 +27,11 @@ class RatingController extends Controller
             $rating = Rating::create([
                 'user_id'   => $request->user()->id,
                 'book_id'   => $book->id,
-            ],
-            [
                 'rating'    => $request->rating
             ]);
 
-            return new Rating($rating);
+            $rating->save();
+            return $rating;
         } else {
             return response()->json(['error', 'Login to rate this book.'], 403);
         }
