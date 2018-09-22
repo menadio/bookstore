@@ -15,7 +15,7 @@ $factory->define(Book::class, function (Faker $faker) {
 $factory->define(Rating::class, function (Faker $faker) {
     return [
         'user_id'   => 1,
-        'book_id'   => mt_rand(1, 5),
+        'book_id'   => mt_rand(1, 2),
         'rating'   => mt_rand(1, 5)
     ];
 });
