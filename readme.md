@@ -1,65 +1,274 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Bookstore RESTFUL API
+## Overview
+Bookstore is an API only application built with Laravel 5.6. The API application allows all users retrieve the list of books and it's average rating, allows only authenticated users to add a new book, update a book record, delete a book record and rate a book. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## HTTP API Request
+API request can be made just by sending HTTPS using any of the following RESTFUL verbs according to the desired action
+* `POST`
+* `GET`
+* `PUT`
+* `DELETE`
 
-## About Laravel
+## Available API Endpoints
+### Registering a user
+User accounts can be created by calling this API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/register
+```
+**Method**  `POST`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+**Status**  `200`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Required fields**
+- `name`          The user's name
+- `email`         The user's unqiue email
+- `password`      Password
+- `c_password`    Confirm password
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+**Example of expected response**
+```
+{
+    "success": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc3YjY3ZmJiM2E0NmMyODBhYjViZWZkNzk2ZGI2NmQwNTk3NDM1MmI5Yzk1NDIyNzllZTlmMGJjNmUzZDM2NzkxMjY4MjFmM2E2YTAzYTg4In0.eyJhdWQiOiIxIiwianRpIjoiNzdiNjdmYmIzYTQ2YzI4MGFiNWJlZmQ3OTZkYjY2ZDA1OTc0MzUyYjljOTU0MjI3OWVlOWYwYmM2ZTNkMzY3OTEyNjgyMWYzYTZhMDNhODgiLCJpYXQiOjE1MzgwMTM0NDMsIm5iZiI6MTUzODAxMzQ0MywiZXhwIjoxNTY5NTQ5NDQzLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.mllUpAiAizZXPV5zNW8zxa0ZxVA3fbtlVJFZrxHEwye2IxTWxZKowBRkruaLOYXId2-PVa3-VmCd3Al...",
+        "name": "mena"
+    }
+}
+```
 
-## Learning Laravel
+### Retrieving a list of all books
+The list of all books stored can be retrieved by calling this API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
+```
+**Method**  `GET`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+**Status**  `200`
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+**Example of expected response**
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Dicta animi alias omnis modi.",
+            "author": "Cesar Beahan",
+            "user": {
+                "id": 1,
+                "name": "Marshall Rempel",
+                "email": "zgusikowski@medhurst.info",
+                "created_at": "2018-09-24 17:21:15",
+                "updated_at": "2018-09-24 17:21:15"
+            },
+            "rated": 4,
+            "ratings": [
+                {
+                    "id": 1,
+                    "user_id": 1,
+                    "book_id": 1,
+                    "rating": 4,
+                    "created_at": "2018-09-24 17:21:11",
+                    "updated_at": "2018-09-24 17:21:11"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Facere esse doloribus reprehenderit debitis maiores voluptatem nihil.",
+            "author": "Omer Fahey",
+            "user": {
+                "id": 1,
+                "name": "Marshall Rempel",
+                "email": "zgusikowski@medhurst.info",
+                "created_at": "2018-09-24 17:21:15",
+                "updated_at": "2018-09-24 17:21:15"
+            },
+            "rated": 3,
+            "ratings": [
+                {
+                    "id": 2,
+                    "user_id": 1,
+                    "book_id": 2,
+                    "rating": 5,
+                    "created_at": "2018-09-24 17:21:11",
+                    "updated_at": "2018-09-24 17:21:11"
+                }
+            ]
+        }
+    ]
+}
+```
 
-## Laravel Sponsors
+### Retrieve a book record
+Get a book record by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+```
+**Method**  `GET`
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+**Status**  `200`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
+**Example of expected response**
+```
+{
+    "data": {
+        "id": 4,
+        "title": "Things Fall Apart",
+        "author": "Chinua Achebe",
+        "user": {
+            "id": 2,
+            "name": "mena",
+            "email": "mena@test.com",
+            "created_at": "2018-09-27 01:57:23",
+            "updated_at": "2018-09-27 01:57:23"
+        },
+        "rated": 4,
+        "ratings": [
+            {
+                "id": 5,
+                "user_id": 2,
+                "book_id": 4,
+                "rating": 4,
+                "created_at": "2018-09-27 03:53:35",
+                "updated_at": "2018-09-27 03:53:35"
+            }
+        ]
+    }
+}
+```
 
-## Contributing
+### Authenticating a user
+Only authenticated users can add or create a new book record. Users are authenticated by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/login
+```
+**Method**  `POST`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Status**  `200`
 
-## Security Vulnerabilities
+**Required fields**
+- `email`
+- `password`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Example of expected response**
+```
+{
+    "success": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE2NTAwMzRjN2MwNDdiMzZlMjI3NzE0ZmIxMTVmNDNhMjIwMDFkYjA2OGY1OWE5NDBmNmRjZjA5Y2I4NWQxYTRmM2Y1MmNhZTIzNzE3NzczIn0.eyJhdWQiOiIxIiwianRpIjoiMTY1MDAzNGM3YzA0N2IzNmUyMjc3MTRmYjExNWY0M2EyMjAwMWRiMDY4ZjU5YTk0MGY2ZGNmMDljYjg1ZDFhNGYzZjUyY2FlMjM"
+    }
+}
+```
 
-## License
+### Creating or Adding new book record
+Authenticated users can add a new book by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
+```
+**Method**  `POST`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Status**  `201`
+
+
+**Required fields**
+- `user_id`
+- `title`
+- `author`
+
+**Example of expected response**
+```
+{
+    "data": {
+        "id": 3,
+        "title": "Things Fall Apart",
+        "author": "Chinua Achebe",
+        "user": {
+            "id": 2,
+            "name": "mena",
+            "email": "mena@test.com",
+            "created_at": "2018-09-27 01:57:23",
+            "updated_at": "2018-09-27 01:57:23"
+        },
+        "rated": null,
+        "ratings": []
+    }
+}
+```
+### Updating a book record
+Authenticated users can only update books belonging to them. A book can be updated by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+```
+id here referes to the book's id which will be an integer.
+**Method**  `PUT`
+
+**Status**  `200`
+
+**Example of expected response**
+```
+{
+    "data": {
+        "id": 3,
+        "title": "Things Fall Apart",
+        "author": "Chief Chinua Achebe",
+        "user": {
+            "id": 2,
+            "name": "mena",
+            "email": "mena@test.com",
+            "created_at": "2018-09-27 01:57:23",
+            "updated_at": "2018-09-27 01:57:23"
+        },
+        "rated": null,
+        "ratings": []
+    }
+}
+```
+
+### Deleting a book record
+Authenticated users can only delete a book belonging to them. A book can be deleted by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+```
+**Method**  `DELETE`
+
+**Status**  `204`
+
+### Rating a book record
+Authenticated users can rate any book by calling the API endpoint
+```
+http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id/rating
+```
+**Method**  `POST`
+
+**Status**  `201`
+
+**Example of expected response**
+```
+{
+    "user_id": 2,
+    "book_id": 4,
+    "rating": "4",
+    "updated_at": "2018-09-27 03:53:35",
+    "created_at": "2018-09-27 03:53:35",
+    "id": 5
+}
+```
+## HTTP Response Codes
+Each HTTP response will be returned with one of the following status codes
+- `200` Request was successful
+- `201` Create request was successful
+- `204` Successful request with no content returned
+- `401` Unauthorized request
+- `404` Resource was not found
+- `500` Internal Server Error
+
+## Field Reference
+These fields are returned in the HTTP response samples
+- `id`    Unique identifier
+- `user_id`   Unique identifier of a user
+- `book_id`   Unique identifier of a book
+- `name`  User name
+- `email` Unique user's email address
+- `title` Title of a book
+- `author` Author of a book
+- `rating` Integer value given to a book by a user
+- `created_at` Time a record was created
+- `updated_at`  Time a record was updated
