@@ -14,15 +14,3 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('books', 'BookController@index');
-
-Route::get('books/{book}', 'BookController@show');
-
-Route::post('books', 'BookController@store');
-
-Route::put('books/{book}', 'BookController@update');
-
-Route::delete('books/{book}', 'BookController@destroy');
-
-Route::post('books/{book}/rating');

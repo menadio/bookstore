@@ -38,6 +38,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title'     => 'required|unique:books',
+            'author'    => 'required'
+        ]);
+
         if ($request->user()->id) {
             $book = Book::create($request->all());
 
@@ -67,6 +72,11 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        $validatedData = $request->validate([
+            'title'     => 'required|unique:books',
+            'author'    => 'required'
+        ]);
+
         // Update book if the logged in user_id is the same as the book user_id
         if ($request->user()->id === $book->user_id) {
             $book->update($request->only(['title', 'author']));
