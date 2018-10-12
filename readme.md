@@ -13,7 +13,7 @@ API request can be made just by sending HTTPS using any of the following RESTFUL
 ### Registering a user
 User accounts can be created by calling this API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/register
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/register
 ```
 **Method**  `POST`
 
@@ -38,7 +38,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/register
 ### Retrieving a list of all books
 The list of all books stored can be retrieved by calling this API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books
 ```
 **Method**  `GET`
 
@@ -101,7 +101,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
 ### Retrieve a book record
 Get a book record by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books/id
 ```
 **Method**  `GET`
 
@@ -139,7 +139,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
 ### Authenticating a user
 Only authenticated users can add or create a new book record. Users are authenticated by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/login
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/login
 ```
 **Method**  `POST`
 
@@ -161,7 +161,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/login
 ### Creating or Adding new book record
 Authenticated users can add a new book by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books
 ```
 **Method**  `POST`
 
@@ -195,7 +195,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books
 ### Updating a book record
 Authenticated users can only update books belonging to them. A book can be updated by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books/id
 ```
 id here referes to the book's id which will be an integer.
 **Method**  `PUT`
@@ -225,7 +225,7 @@ id here referes to the book's id which will be an integer.
 ### Deleting a book record
 Authenticated users can only delete a book belonging to them. A book can be deleted by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books/id
 ```
 **Method**  `DELETE`
 
@@ -234,7 +234,7 @@ http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id
 ### Rating a book record
 Authenticated users can rate any book by calling the API endpoint
 ```
-http://bookstoreapi-env.svfmaqqmj9.us-east-1.elasticbeanstalk.com/api/books/id/rating
+http://BookstoreApiApp-env.ia24dtqpia.eu-west-2.elasticbeanstalk.com/api/books/id/rating
 ```
 **Method**  `POST`
 
@@ -272,3 +272,6 @@ These fields are returned in the HTTP response samples
 - `rating` Integer value given to a book by a user
 - `created_at` Time a record was created
 - `updated_at`  Time a record was updated
+
+## Test
+Running `vendor/bin/phpunit` or `phpunit` runs a quick API functionality test. It runs each function defined inside the `test/Feature/BookAPITest.php` file.
